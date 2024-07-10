@@ -1,0 +1,15 @@
+{
+    "name": "@playground/{{ name }}",
+    "version": "1.0.0",
+    "description": "",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "devDependencies": {
+      "@types/node": "^20.14.9",
+      "tsc-watch": "^6.2.0",
+      "typescript": "^5.5.3"
+    }
+  }
+  

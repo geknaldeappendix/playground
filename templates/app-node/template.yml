@@ -1,0 +1,10 @@
+title: 'node application'
+description: 'node application'
+variables:
+  name:
+    type: 'string'
+    default: ''
+    required: true
+    prompt: 'name?'
+
+destination: 'apps/{{name}}'

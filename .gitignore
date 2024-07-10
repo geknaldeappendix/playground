@@ -1,0 +1,13 @@
+node_modules
+
+# moon
+.moon/cache
+.moon/docker
+
+# outDir for node apps
+build/
+
+# The `outDir` for declarations
+lib/
+# Build cache manifests
+*.tsbuildinfo

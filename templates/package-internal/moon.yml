@@ -1,0 +1,6 @@
+type: 'library'
+language: 'typescript'
+
+tasks:
+  dev:
+    command: 'tsc --build --watch'

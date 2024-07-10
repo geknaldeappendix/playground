@@ -1,0 +1,10 @@
+title: 'vite application'
+description: 'vite application'
+variables:
+  name:
+    type: 'string'
+    default: ''
+    required: true
+    prompt: 'name?'
+
+destination: 'apps/{{name}}'

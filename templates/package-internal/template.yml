@@ -1,0 +1,10 @@
+title: 'package'
+description: 'ts package'
+variables:
+  name:
+    type: 'string'
+    default: ''
+    required: true
+    prompt: 'name?'
+
+destination: 'packages/{{name}}'
