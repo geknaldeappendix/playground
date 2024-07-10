@@ -1,0 +1,9 @@
+type: 'application'
+language: 'typescript'
+
+tasks:
+  dev:
+    command: 'vite --clearScreen false'
+
+dependsOn:
+  - math

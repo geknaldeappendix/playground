@@ -1,4 +1,11 @@
 {
   "extends": "./tsconfig.options.json",
-  "references": []
+  "references": [
+    {
+      "path": "apps/stress-test"
+    },
+    {
+      "path": "packages/math"
+    }
+  ]
 }

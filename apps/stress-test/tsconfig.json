@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.options.json",
+  "include": [
+    "**/*",
+    "../../packages/math/**/*"
+  ],
+  "references": [
+    {
+      "path": "../../packages/math"
+    }
+  ],
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "src",
+    "paths": {
+      "@playground/math/*": [
+        "../../packages/math/src/*"
+      ]
+    },
+    "outDir": "../../.moon/cache/types/apps/stress-test"
+  }
+}
