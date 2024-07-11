@@ -6,4 +6,5 @@ tasks:
     command: 'vite --clearScreen false'
 
 dependsOn:
+  - ecs
   - math

@@ -2,9 +2,13 @@
   "extends": "../../tsconfig.options.json",
   "include": [
     "**/*",
+    "../../packages/ecs/**/*",
     "../../packages/math/**/*"
   ],
   "references": [
+    {
+      "path": "../../packages/ecs"
+    },
     {
       "path": "../../packages/math"
     }
@@ -15,6 +19,9 @@
     "paths": {
       "@playground/math/*": [
         "../../packages/math/src/*"
+      ],
+      "@playground/ecs/*": [
+        "../../packages/ecs/src/*"
       ]
     },
     "outDir": "../../.moon/cache/types/apps/stress-test"

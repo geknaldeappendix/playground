@@ -5,6 +5,9 @@
       "path": "apps/stress-test"
     },
     {
+      "path": "packages/ecs"
+    },
+    {
       "path": "packages/math"
     }
   ]
