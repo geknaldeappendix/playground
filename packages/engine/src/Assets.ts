@@ -53,7 +53,7 @@ export class Assets<Names extends AssetsNames> {
     }
 
     public get<Type extends AssetType>(
-        type: AssetType,
+        type: Type,
         name: Names[Type]
     ): AssetTypeMap[Type] | undefined {
         const asset = this.map_by_type(type).get(name);

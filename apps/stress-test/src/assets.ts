@@ -1,16 +1,14 @@
 import { AssetType, Assets } from "@playground/engine/Assets";
 
 export enum Shader {
-    default = 0
+    mob_renderer = 0
 }
 
 export enum Image {
-    white1x1 = 0,
 }
 
 export enum Texture {
-    white1x1 = 0,
-    black1x1
+    mob_sprite_sheet = 0,
 }
 
 export type AssetNames = {
@@ -20,7 +18,6 @@ export type AssetNames = {
 }
 
 export async function assets_load(assets: Assets<AssetNames>, gl: WebGL2RenderingContext) {
-    await assets.load(AssetType.Shader, Shader.default, [gl, 'shaders/default.v.glsl', 'shaders/default.f.glsl']),
-    await assets.load(AssetType.Texture, Texture.white1x1, [gl, 'images/1x1white.png']),
-    await assets.load(AssetType.Texture, Texture.black1x1, [gl, 'images/1x1black.png'])
+    await assets.load(AssetType.Shader, Shader.mob_renderer, [gl, 'shaders/mob_renderer.v.glsl', 'shaders/mob_renderer.f.glsl']),
+    await assets.load(AssetType.Texture, Texture.mob_sprite_sheet, [gl, 'images/mob_sprite_sheet.png']);
 }

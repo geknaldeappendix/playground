@@ -8,18 +8,41 @@ export type Usage =
 
 const ERROR_CREATE_BUFFER = new Error("ERROR_CREATE_BUFFER gl.createBuffer()")
 
+export type VBO = {
+    target: Target
+    usage: Usage
+    buffer: WebGLBuffer
+}
+
 export function
 vbo_create(
     gl: WebGL2RenderingContext,
     target: Target,
-    data: ArrayBuffer,
-    usage: Usage
-): [Target, WebGLBuffer] {
+    usage: Usage,
+    data?: ArrayBuffer,
+): VBO {
     const buffer = gl.createBuffer();
     if (!buffer) throw ERROR_CREATE_BUFFER;
 
-    gl.bindBuffer(target, buffer);
-    gl.bufferData(target, data, usage);
+    const vbo = {
+        target,
+        usage,
+        buffer
+    }
 
-    return [target, buffer];
+    if (data && usage) {
+        vbo_data(gl, vbo, data)
+    }
+
+    return vbo;
+}
+
+export function 
+vbo_data(
+    gl: WebGL2RenderingContext,
+    vbo: VBO,
+    data: ArrayBuffer,
+) {
+    gl.bindBuffer(vbo.target, vbo.buffer);
+    gl.bufferData(vbo.target, data, vbo.usage);
 }
