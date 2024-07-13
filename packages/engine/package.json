@@ -1,17 +1,21 @@
 {
-  "name": "@playground/stress-test",
+  "name": "@playground/engine",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "exports": {
+    "./*": {
+      "import": "./src/*.ts",
+      "require": "./src/*.ts"
+    }
+  },
   "devDependencies": {
-    "typescript": "^5.5.3",
-    "vite": "^5.3.2"
+    "typescript": "^5.5.3"
   },
   "dependencies": {
     "@playground/ecs": "workspace:*",
-    "@playground/engine": "workspace:*",
     "@playground/math": "workspace:*",
     "@playground/webgl": "workspace:*"
   }

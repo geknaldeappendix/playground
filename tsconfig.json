@@ -8,7 +8,13 @@
       "path": "packages/ecs"
     },
     {
+      "path": "packages/engine"
+    },
+    {
       "path": "packages/math"
+    },
+    {
+      "path": "packages/webgl"
     }
   ]
 }

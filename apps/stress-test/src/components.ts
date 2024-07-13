@@ -10,15 +10,6 @@ export enum ComponentType {
     Sprite,
 }
 
-// export enum ExtendedComponentType {
-//     Position = LAST_COMPONENT_TYPE + 1,
-//     Velocity = LAST_COMPONENT_TYPE + 2,
-//     Sprite = LAST_COMPONENT_TYPE + 3,
-// }
-
-// export const ComponentType = {...BaseComponentType, ...ExtendedComponentType};
-// export type ComponentType = BaseComponentType | ExtendedComponentType;
-
 export type ComponentMap = {
     [ComponentType.Position]: Position,
     [ComponentType.Velocity]: Velocity,

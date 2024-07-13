@@ -1,0 +1,35 @@
+{
+  "extends": "../../tsconfig.options.json",
+  "include": [
+    "**/*",
+    "../ecs/**/*",
+    "../math/**/*",
+    "../webgl/**/*"
+  ],
+  "references": [
+    {
+      "path": "../ecs"
+    },
+    {
+      "path": "../math"
+    },
+    {
+      "path": "../webgl"
+    }
+  ],
+  "compilerOptions": {
+    "rootDir": "src",
+    "paths": {
+      "@playground/ecs/*": [
+        "../ecs/src/*"
+      ],
+      "@playground/math/*": [
+        "../math/src/*"
+      ],
+      "@playground/webgl/*": [
+        "../webgl/src/*"
+      ]
+    },
+    "outDir": "../../.moon/cache/types/packages/engine"
+  }
+}

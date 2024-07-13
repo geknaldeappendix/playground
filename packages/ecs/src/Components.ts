@@ -1,16 +1,6 @@
 export type Component = any;
 export type BitMask = number;
 
-// export enum ComponentType {
-//     Id = 0
-// }
-
-// export const LAST_COMPONENT_TYPE = ComponentType.Id
-
-// export type ComponentMap = {
-//     [ComponentType.Id]: number
-// }
-
 export type ComponentTypes = Record<number, Component>;
 
 const ERROR_COMPONENT_NOT_REGISTERED = new Error('ERROR_COMPONENT_NOT_REGISTERED');

@@ -3,14 +3,22 @@
   "include": [
     "**/*",
     "../../packages/ecs/**/*",
-    "../../packages/math/**/*"
+    "../../packages/engine/**/*",
+    "../../packages/math/**/*",
+    "../../packages/webgl/**/*"
   ],
   "references": [
     {
       "path": "../../packages/ecs"
     },
     {
+      "path": "../../packages/engine"
+    },
+    {
       "path": "../../packages/math"
+    },
+    {
+      "path": "../../packages/webgl"
     }
   ],
   "compilerOptions": {
@@ -22,6 +30,12 @@
       ],
       "@playground/ecs/*": [
         "../../packages/ecs/src/*"
+      ],
+      "@playground/webgl/*": [
+        "../../packages/webgl/src/*"
+      ],
+      "@playground/engine/*": [
+        "../../packages/engine/src/*"
       ]
     },
     "outDir": "../../.moon/cache/types/apps/stress-test"

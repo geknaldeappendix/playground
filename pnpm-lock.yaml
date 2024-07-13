@@ -17,9 +17,15 @@ importers:
       '@playground/ecs':
         specifier: workspace:*
         version: link:../../packages/ecs
+      '@playground/engine':
+        specifier: workspace:*
+        version: link:../../packages/engine
       '@playground/math':
         specifier: workspace:*
         version: link:../../packages/math
+      '@playground/webgl':
+        specifier: workspace:*
+        version: link:../../packages/webgl
     devDependencies:
       typescript:
         specifier: ^5.5.3
@@ -34,7 +40,29 @@ importers:
         specifier: ^5.5.3
         version: 5.5.3
 
+  packages/engine:
+    dependencies:
+      '@playground/ecs':
+        specifier: workspace:*
+        version: link:../ecs
+      '@playground/math':
+        specifier: workspace:*
+        version: link:../math
+      '@playground/webgl':
+        specifier: workspace:*
+        version: link:../webgl
+    devDependencies:
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.3
+
   packages/math:
+    devDependencies:
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.3
+
+  packages/webgl:
     devDependencies:
       typescript:
         specifier: ^5.5.3

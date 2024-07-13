@@ -8,3 +8,5 @@ tasks:
 dependsOn:
   - ecs
   - math
+  - webgl
+  - engine

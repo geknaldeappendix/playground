@@ -1,0 +1,1 @@
+export type EnumType<T extends number | string> = { [key: number]: T }
