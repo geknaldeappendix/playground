@@ -9,7 +9,7 @@ export class World<Types extends ComponentTypes> extends Components<Types> {
     private tps = 0;
 
     private entities: Array<BitMask> = []
-    private systems: Array<System> = [];
+    private systems: Array<System<Types>> = [];
 
     public entity_create(): EntityId {
         const free = this.entities.indexOf(0);
@@ -44,7 +44,22 @@ export class World<Types extends ComponentTypes> extends Components<Types> {
         return bit_mask;
     }
 
-    public system_push(system: System) {
+    public query_create<Type extends keyof Types & number>(components: Type[]): BitMask {
+        return components.reduce((bit_mask, index) => bit_mask | 1 << index, 0)
+    }
+
+    public query(query_bit_mask: BitMask): number[] {
+        return this.entities.reduce<number[]>((result, bit_mask, i) => {
+            if ((query_bit_mask & bit_mask) === bit_mask) {
+                result.push(i)
+            }
+            return result
+        }, [])
+    }
+
+    public system_push(system: System<Types>) {
+        system.world = this;
+        system.query = this.query_create(system.required_components);
         this.systems.push(system);
     }
 
@@ -55,14 +70,20 @@ export class World<Types extends ComponentTypes> extends Components<Types> {
         this.systems.forEach(system => {
             system.accumulated_time += delta;
 
+            const entities = this.query(system.query)
+
+            system.render(delta, entities);
+
+            if (system.interval === -1) return;
+
             if (system.interval === 0) {
-                system.tick(delta)
+                system.tick(delta, entities)
                 system.accumulated_time = 0;
                 return;
             }
 
             while (system.accumulated_time >= system.interval) {
-                system.tick(system.interval)
+                system.tick(system.interval, entities)
                 system.accumulated_time -= system.interval;
             }
         });

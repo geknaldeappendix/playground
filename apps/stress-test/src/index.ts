@@ -1,23 +1,23 @@
+import { camera_tick_ortho } from "@playground/engine/Camera";
 import { Engine } from "@playground/engine/Engine";
-import { vector2_create } from "@playground/math/vector2";
 import { AssetNames, assets_load } from "./assets";
-import { ComponentMap, ComponentType } from "./components";
-import { MobRenderer } from "./systems/MobRenderer";
+import { Component, Components } from "./components";
+import { MobSpawner } from "./systems/MobSpawner";
+import { Physics } from "./systems/Physics";
+import { SpriteSheetRenderer } from "./systems/SpriteSheetRenderer";
 
-const { world, assets, canvas, gl } = new Engine<ComponentMap, AssetNames>(ComponentType);
+const { world, assets, canvas, gl, camera } = new Engine<Components, AssetNames>(Component);
 await assets_load(assets, gl)
-world.system_push(new MobRenderer(canvas, gl, assets))
 
-const player = world.entity_create();
-
-world.set(player, ComponentType.Position, vector2_create());
-world.set(player, ComponentType.Velocity, vector2_create());
-world.set(player, ComponentType.Sprite, "player1");
+world.system_push(new SpriteSheetRenderer(canvas, gl, assets, camera))
+world.system_push(new Physics())
+world.system_push(new MobSpawner())
 
 gl.clearColor(1.0, 1.0, 1.0, 1.0);
 (function tick(now: number) {
     window.requestAnimationFrame(tick)
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    camera_tick_ortho(camera)
     world.tick(now);
 })(0);

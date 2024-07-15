@@ -46,3 +46,11 @@ vbo_data(
     gl.bindBuffer(vbo.target, vbo.buffer);
     gl.bufferData(vbo.target, data, vbo.usage);
 }
+
+export function
+vbo_bind(
+    gl: WebGL2RenderingContext,
+    vbo: VBO,
+) {
+    gl.bindBuffer(vbo.target, vbo.buffer)
+}

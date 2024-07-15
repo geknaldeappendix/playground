@@ -12,6 +12,8 @@ export function vector3_create(
     return vector;
 }
 
+export const VECTOR3_UP = vector3_create(0, 1, 0);
+
 export function vector3_clone(
     from: Vector3
 ): Vector3 {

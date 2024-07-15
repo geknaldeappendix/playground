@@ -33,3 +33,7 @@ quaternion_euler(
     out[3] = cx * cy * cz + sx * sy * sz;
     return out;
 }
+
+export function deg_to_rad(deg: number): number {
+    return deg * (Math.PI / 180);
+}
