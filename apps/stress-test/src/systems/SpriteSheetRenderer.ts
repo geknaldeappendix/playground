@@ -62,7 +62,7 @@ export class SpriteSheetRenderer extends System<Components> {
         gl.useProgram(this.program);
         gl.bindTexture(gl.TEXTURE_2D, this.texture);
         gl.uniform2f(this.u_resolution, canvas.width, canvas.height);
-        gl.uniform2f(this.u_camera, this.camera.position[0], this.camera.position[1]);
+        gl.uniform3fv(this.u_camera, this.camera.position);
 
         vbo_bind(gl, this.vertex_buffer);
         gl.enableVertexAttribArray(this.in_position);

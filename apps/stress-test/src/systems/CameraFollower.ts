@@ -4,15 +4,15 @@ import { Input } from "@playground/engine/Input";
 import { Component, Components } from "../components";
 
 export class CameraFollower extends System<Components> {
-    public interval: number = 1000/10;
+    public interval: number = 0;
     public required_components: Component[] = []
 
-    private speed = .01;
     private text = document.createElement('p')
 
     public constructor(
+        private camera: Camera,
         private input: Input,
-        private camera: Camera
+        private player_id: number
     ) {
         super()
         this.text.style.position = 'absolute';
@@ -22,12 +22,14 @@ export class CameraFollower extends System<Components> {
     }
 
     public tick(delta: number, entities: number[]): void {
-        const x = (this.input.key_down('a') ? 1 : 0) - (this.input.key_down('d') ? 1 : 0);
-        const y = (this.input.key_down('s') ? 1 : 0) - (this.input.key_down('w') ? 1 : 0);
+        const position = this.world.get(this.player_id, Component.Position)!;
 
-        this.camera.position[0] += x * delta * this.speed;
-        this.camera.position[1] += y * delta * this.speed;
+        this.camera.position[0] = this.camera.canvas.width / 2 - position[0];
+        this.camera.position[1] = this.camera.canvas.height / 2 - position[1];
+        this.camera.position[2] = 1;
 
-        this.text.innerHTML = this.camera.position[0] + ', ' + this.camera.position[1]
+        this.camera.position[2] = Math.max(1, this.input.mouse.wheel / 120);
+
+        this.text.innerHTML = this.camera.position[0] + ' | ' + this.camera.position[1] + ' | ' + this.camera.position[2]
     }
 }

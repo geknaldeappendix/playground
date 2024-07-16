@@ -50,7 +50,7 @@ export class World<Types extends ComponentTypes> extends Components<Types> {
 
     public query(query_bit_mask: BitMask): number[] {
         return this.entities.reduce<number[]>((result, bit_mask, i) => {
-            if ((query_bit_mask & bit_mask) === bit_mask) {
+            if ((query_bit_mask & bit_mask) === query_bit_mask) {
                 result.push(i)
             }
             return result

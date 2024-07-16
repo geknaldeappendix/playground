@@ -4,6 +4,7 @@ export class Input {
         x: -1,
         y: -1,
         buttons: [false, false, false],
+        wheel: 0
     }
 
     public keys: Array<string> = new Array<string>()
@@ -41,6 +42,10 @@ export class Input {
         this.mouse.buttons[event.button] = false;
     }
 
+    onwheel(event: WheelEvent) {
+        this.mouse.wheel += event.deltaY
+    }
+
     onkeydown(event: KeyboardEvent) {
         if (!this.keys.includes(event.key)) {
             this.keys.push(event.key);
@@ -56,6 +61,7 @@ export class Input {
         canvas.onclick = this.onclick.bind(this);
         canvas.onmousedown = this.onmousedown.bind(this);
         canvas.onmouseup = this.onmouseup.bind(this);
+        document.body.onwheel = this.onwheel.bind(this)
         document.body.onkeydown = this.onkeydown.bind(this);
         document.body.onkeyup = this.onkeyup.bind(this);
     }
