@@ -69,3 +69,19 @@ export function vector2_scale(
     return out;
 }
 
+export function vector2_magnitude(
+    vector: Vector2
+): number {
+    return Math.sqrt(vector[0] * vector[0] + vector[1] * vector[1]);
+}
+
+export function vector2_normalize(
+    out: Vector2,
+    vector: Vector2,
+): Vector2 {
+    const magnitude = vector2_magnitude(vector);
+    out[0] = vector[0] / magnitude;
+    out[1] = vector[1] / magnitude;
+    return out;
+}
+

@@ -2,7 +2,7 @@ import { System } from "@playground/ecs/System";
 import { Input } from "@playground/engine/Input";
 import { Component, Components } from "../components";
 
-export class PlayerInput extends System<Components> {
+export class PlayerInputSystem extends System<Components> {
     public interval: number = 0;
     public required_components: Component[] = []
 

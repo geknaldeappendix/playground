@@ -3,7 +3,7 @@ import { Camera } from "@playground/engine/Camera";
 import { Input } from "@playground/engine/Input";
 import { Component, Components } from "../components";
 
-export class CameraFollower extends System<Components> {
+export class CameraFollowerSystem extends System<Components> {
     public interval: number = 0;
     public required_components: Component[] = []
 

@@ -10,3 +10,7 @@ packages
 - math
 - websocket-server
 - websocket-client (or both in 1 package)
+
+research Float32Array memory
+
+- world is not available in System constructor

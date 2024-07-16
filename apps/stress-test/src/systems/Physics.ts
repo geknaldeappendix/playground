@@ -2,7 +2,7 @@ import { System } from "@playground/ecs/System";
 import { EntityId } from "@playground/ecs/World";
 import { Component, Components } from "../components";
 
-export class Physics extends System<Components> {
+export class PhysicsSystem extends System<Components> {
     public interval: number = 0
     public required_components: Component[] = [Component.Position, Component.Velocity]
 

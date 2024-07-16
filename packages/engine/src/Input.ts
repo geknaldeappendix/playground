@@ -31,7 +31,7 @@ export class Input {
     onclick() {
         if (this.mouse.locked) return;
         document.onpointerlockchange = this.onpointerlockchange.bind(this);
-        (async () => this.canvas.requestPointerLock())();
+        // (async () => this.canvas.requestPointerLock())();
     }
 
     onmousedown(event: MouseEvent) {
