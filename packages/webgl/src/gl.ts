@@ -1,7 +1,9 @@
+import { canvas } from "./canvas";
+
 const ERROR_GET_CONTEXT = new Error("ERROR_GET_CONTEXT canvas.getContext(\"webgl2\")");
 
 export function 
-context_create(
+gl_create(
     canvas: HTMLCanvasElement
 ): WebGL2RenderingContext {
     const gl = canvas.getContext("webgl2", { 
@@ -16,3 +18,5 @@ context_create(
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     return gl;
 }
+
+export const gl = gl_create(canvas);

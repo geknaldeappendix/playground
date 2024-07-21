@@ -20,6 +20,9 @@ importers:
       '@playground/engine':
         specifier: workspace:*
         version: link:../../packages/engine
+      '@playground/input':
+        specifier: workspace:*
+        version: link:../../packages/input
       '@playground/math':
         specifier: workspace:*
         version: link:../../packages/math
@@ -51,6 +54,12 @@ importers:
       '@playground/webgl':
         specifier: workspace:*
         version: link:../webgl
+    devDependencies:
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.3
+
+  packages/input:
     devDependencies:
       typescript:
         specifier: ^5.5.3

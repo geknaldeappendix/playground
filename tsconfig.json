@@ -11,6 +11,9 @@
       "path": "packages/engine"
     },
     {
+      "path": "packages/input"
+    },
+    {
       "path": "packages/math"
     },
     {

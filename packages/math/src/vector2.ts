@@ -10,6 +10,15 @@ export function vector2_create(
     return vector;
 }
 
+export function vector2_from(
+    out: Vector2,
+    from: Vector2
+): Vector2 {
+    out[0] = from[0];
+    out[1] = from[1];
+    return out;
+}
+
 export function vector2_clone(
     from: Vector2
 ): Vector2 {

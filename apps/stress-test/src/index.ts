@@ -1,21 +1,31 @@
-import { Engine } from "@playground/engine/Engine";
+import { component_set } from "@playground/ecs/component";
+import { entity_create } from "@playground/ecs/entity";
+import { system_create } from "@playground/ecs/system";
+import { world_create, world_tick } from "@playground/ecs/world";
 import { vector2_create } from "@playground/math/vector2";
-import { AssetNames, assets_load } from "./assets";
-import { Component, Components } from "./components";
-import { RendererSystem } from "./systems/Renderer";
+import { COMPONENTS, POSITION, SPRITE, TAG_PLAYER, VELOCITY } from "./components";
+import { ENEMY_MOVER } from "./systems/enemy_mover";
+import { ENEMY_SPAWNER } from "./systems/enemy_spawner";
+import { INPUT } from "./systems/input";
+import { PHYSICS } from "./systems/physics";
+import { RENDERER } from "./systems/renderer";
 
-const engine = new Engine<Components, AssetNames>(Component);
-engine.add_system(RendererSystem)
-// engine.add_system(PhysicsSystem)
-// engine.add_system(EnemySpawnerSystem)
-// engine.add_system(CameraFollowerSystem)
-// engine.add_system(PlayerInputSystem)
+const world = world_create(COMPONENTS);
 
-await assets_load(engine.assets, engine.gl)
+system_create(world, RENDERER);
+system_create(world, PHYSICS);
+system_create(world, ENEMY_SPAWNER);
+system_create(world, ENEMY_MOVER);
+system_create(world, INPUT);
 
-const player_id = engine.world.entity_create();
-engine.world.set(player_id, Component.Position, vector2_create(0, 0))
-engine.world.set(player_id, Component.Velocity, vector2_create(0, 0))
-engine.world.set(player_id, Component.Sprite, 0)
+const player = entity_create(world);
+component_set(world, player, POSITION, vector2_create());
+component_set(world, player, VELOCITY, vector2_create());
+component_set(world, player, SPRITE, 0)
+component_set(world, player, TAG_PLAYER, 1)
 
-engine.start();
+function tick(now: number) {
+    window.requestAnimationFrame(tick)
+    world_tick(world, now);
+}
+window.requestAnimationFrame(tick)

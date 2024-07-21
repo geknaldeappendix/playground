@@ -4,6 +4,7 @@
     "**/*",
     "../../packages/ecs/**/*",
     "../../packages/engine/**/*",
+    "../../packages/input/**/*",
     "../../packages/math/**/*",
     "../../packages/webgl/**/*"
   ],
@@ -13,6 +14,9 @@
     },
     {
       "path": "../../packages/engine"
+    },
+    {
+      "path": "../../packages/input"
     },
     {
       "path": "../../packages/math"
@@ -36,6 +40,9 @@
       ],
       "@playground/engine/*": [
         "../../packages/engine/src/*"
+      ],
+      "@playground/input/*": [
+        "../../packages/input/src/*"
       ]
     },
     "outDir": "../../.moon/cache/types/apps/stress-test"

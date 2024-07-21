@@ -10,3 +10,4 @@ dependsOn:
   - math
   - webgl
   - engine
+  - input

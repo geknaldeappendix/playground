@@ -1,21 +1,15 @@
-import { Vector2 } from "@playground/math/vector2";
+export const POSITION = 0, 
+            VELOCITY = 1, 
+            SPRITE = 2,
+            TAG_PLAYER = 3,
+            TAG_ENEMY = 4,
+            TAG_PROJECTILE = 5;
 
-export type Position = Vector2;
-export type Velocity = Vector2;
-export type Sprite = number;
-
-export enum Component {
-    Position = 0,
-    Velocity,
-    Sprite,
+export const COMPONENTS = [
+    POSITION,
+    VELOCITY,
+    SPRITE,
     TAG_PLAYER,
-    TAG_ENEMY
-}
-
-export type Components= {
-    [Component.Position]: Position,
-    [Component.Velocity]: Velocity,
-    [Component.Sprite]: Sprite,
-    [Component.TAG_PLAYER]: null,
-    [Component.TAG_ENEMY]: null,
-}
+    TAG_ENEMY,
+    TAG_PROJECTILE
+]

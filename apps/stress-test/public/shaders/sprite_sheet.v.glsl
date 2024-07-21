@@ -1,7 +1,6 @@
 #version 300 es
 
 in vec2 in_position;
-// in vec2 in_texcoord;
 
 in vec2 in_sprite_pos;
 in float in_sprite_index;

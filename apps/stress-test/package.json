@@ -12,6 +12,7 @@
   "dependencies": {
     "@playground/ecs": "workspace:*",
     "@playground/engine": "workspace:*",
+    "@playground/input": "workspace:*",
     "@playground/math": "workspace:*",
     "@playground/webgl": "workspace:*"
   }

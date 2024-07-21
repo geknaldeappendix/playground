@@ -14,3 +14,6 @@ canvas_create_fullscreen(): HTMLCanvasElement {
     document.body.appendChild(canvas);
     return canvas;
 }
+
+console.log("creating canvas")
+export const canvas = canvas_create_fullscreen();
