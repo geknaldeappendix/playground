@@ -39,6 +39,7 @@ export const INPUT: System = {
                 const direction = vector2_create();
                 vector2_subtract(direction, input, position);
                 vector2_normalize(direction, direction);
+                direction[1] = -direction[1]
                 vector2_scale(direction, direction, PROJECTILE_SPEED)
 
                 const projectile = entity_create(world);

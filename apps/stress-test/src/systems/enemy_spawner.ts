@@ -3,13 +3,13 @@ import { entity_create } from "@playground/ecs/entity";
 import { query } from "@playground/ecs/query";
 import { System } from "@playground/ecs/system";
 import { vector2_create } from "@playground/math/vector2";
-import { POSITION, SPRITE, TAG_ENEMY, TAG_PLAYER, VELOCITY } from "../components";
+import { COLLIDER, POSITION, SPRITE, TAG_ENEMY, TAG_PLAYER, VELOCITY } from "../components";
 
 const QUERY = 1 << TAG_PLAYER
 const RADIUS = 200;
 
 export const ENEMY_SPAWNER: System = {
-    interval: 1000/10,
+    interval: 1000/1,
 
     tick(world) {
         const player = query(world, QUERY)[0];
@@ -25,6 +25,7 @@ export const ENEMY_SPAWNER: System = {
         component_set(world, enemy, POSITION, random);
         component_set(world, enemy, VELOCITY, vector2_create());
         component_set(world, enemy, SPRITE, 4);
-        component_set(world, enemy, TAG_ENEMY, 0);
+        component_set(world, enemy, COLLIDER, 1);
+        component_set(world, enemy, TAG_ENEMY, 1);
     }
 }
