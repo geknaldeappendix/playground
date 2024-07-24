@@ -9,7 +9,7 @@ const QUERY_PLAYER = query_create([POSITION, TAG_PLAYER])
 
 const ENEMY_SPEED = 30
 
-export const ENEMY_MOVER: System = {
+export const ENEMY_MOVEMENT: System = {
     interval: 1000/10,
 
     tick(world, delta) {

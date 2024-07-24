@@ -6,9 +6,9 @@ import { key_down } from "@playground/input/keyboard";
 import { mouse_down, mouse_xy } from "@playground/input/mouse";
 import { vector2_clone, vector2_create, vector2_normalize, vector2_scale, vector2_subtract } from "@playground/math/vector2";
 import { camera } from "../camera";
-import { POSITION, SPRITE, TAG_PLAYER, TAG_PROJECTILE, VELOCITY } from "../components";
+import { INPUT, POSITION, SPRITE, TAG_PROJECTILE, VELOCITY } from "../components";
 
-const QUERY = query_create([POSITION, VELOCITY, TAG_PLAYER])
+const QUERY = query_create([INPUT])
 
 const SPEED = 60;
 const PROJECTILE_SPEED = 40;
@@ -16,21 +16,19 @@ const COOLDOWN_RATE = 1000/10;
 
 let time = 0;
 
-export const INPUT: System = {
+export const PLAYER_INPUT: System = {
     interval: 0,
 
     tick(world, delta) {
         time += delta
         const player = query(world, QUERY)[0];
         const position = component_get(world, player, POSITION)
-        const velocity = component_get(world, player, VELOCITY)
+        const input = component_get(world, player, INPUT)
 
-        const x = (key_down('d') ? 1 : 0) - (key_down('a') ? 1 : 0);
-        const y = (key_down('w') ? 1 : 0) - (key_down('s') ? 1 : 0);
+        input.dx = (key_down('d') ? 1 : 0) - (key_down('a') ? 1 : 0);
+        input.dy = (key_down('w') ? 1 : 0) - (key_down('s') ? 1 : 0);
 
-        velocity[0] = x * SPEED;
-        velocity[1] = y * SPEED;
-
+        // Move this to projectile spawner
         if (mouse_down(0)) {
             if (COOLDOWN_RATE < time * 1000) {
                 const mouse = vector2_create(...mouse_xy())
