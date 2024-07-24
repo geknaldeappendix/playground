@@ -94,3 +94,20 @@ export function vector2_normalize(
     return out;
 }
 
+export function vector2_lerp(
+    out: Vector2, 
+    a: Vector2, 
+    b: Vector2, 
+    t: number
+): Vector2 {
+    out[0] = a[0] + (b[0] - a[0]) * t;
+    out[1] = a[1] + (b[1] - a[1]) * t;
+    return out;
+}
+
+export function vector2_dot(
+    a: Vector2, 
+    b: Vector2, 
+): number {
+    return a[0] * b[0] + a[1] * b[1];
+}
