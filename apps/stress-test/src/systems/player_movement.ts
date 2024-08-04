@@ -4,7 +4,7 @@ import { System } from "@playground/ecs/system";
 import { INPUT, TAG_PLAYER, VELOCITY } from "../components";
 
 const QUERY = query_create([VELOCITY, INPUT, TAG_PLAYER])
-const SPEED = 60;
+const SPEED = 120;
 
 export const PLAYER_MOVEMENT: System  = {
     interval: 0,
@@ -14,7 +14,12 @@ export const PLAYER_MOVEMENT: System  = {
         const input = component_get(world, player, INPUT)
         const velocity = component_get(world, player, VELOCITY)
 
-        velocity[0] = input.dx * SPEED;
-        velocity[1] = input.dy * SPEED;
+        let speed = SPEED;
+        if (input.sprint) {
+            speed -= 60;
+        }
+
+        velocity[0] = input.dx * speed;
+        velocity[1] = input.dy * speed;
     }
 }

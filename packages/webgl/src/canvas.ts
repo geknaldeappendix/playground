@@ -15,5 +15,4 @@ canvas_create_fullscreen(): HTMLCanvasElement {
     return canvas;
 }
 
-console.log("creating canvas")
 export const canvas = canvas_create_fullscreen();

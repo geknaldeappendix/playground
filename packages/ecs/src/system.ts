@@ -3,8 +3,8 @@ import { World } from "./world";
 export type System = {
     interval?: number
     init?(world: World): Promise<void>
-    tick?(world: World, delta: number): void
-    render?(world: World, delta: number): void
+    tick?(world: World, delta: number, now: number): void
+    render?(world: World, delta: number, now: number): void
 }
 
 export async function system_create(

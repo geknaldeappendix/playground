@@ -6,10 +6,10 @@ import { vector2_create } from "@playground/math/vector2";
 import { COLLIDER, POSITION, SPRITE, TAG_ENEMY, TAG_PLAYER, VELOCITY } from "../components";
 
 const QUERY = 1 << TAG_PLAYER
-const RADIUS = 200;
+const RADIUS = 500;
 
 export const ENEMY_SPAWNER: System = {
-    interval: 1000/1,
+    interval: 1000/100,
 
     tick(world) {
         const player = query(world, QUERY)[0];

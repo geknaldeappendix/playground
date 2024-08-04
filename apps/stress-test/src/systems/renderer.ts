@@ -60,13 +60,13 @@ export const RENDERER: System = {
         u_resolution = program_uniform_location(gl, program, "u_resolution")
         u_camera = program_uniform_location(gl, program, "u_camera")
 
-        gl.viewport(0, 0, canvas.width, canvas.height);
         gl.clearColor(1.0, 1.0, 1.0, 1.0)
     },
 
     render(world) {
         gl.useProgram(program);
         gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.viewport(0, 0, canvas.width, canvas.height);
         // gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         const entities = query(world, QUERY);

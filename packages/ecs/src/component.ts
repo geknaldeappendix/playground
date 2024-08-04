@@ -11,6 +11,15 @@ export function component_set(
     world.components.get(bit_mask)![entity_index] = component;
 }
 
+export function component_has(
+    world: World,
+    entity_index: number,
+    component_index: number
+): boolean {
+    const bit_mask = 1 << component_index;
+    return world.components.get(bit_mask)![entity_index] !== undefined;
+}
+
 export function component_get(
     world: World,
     entity_index: number,

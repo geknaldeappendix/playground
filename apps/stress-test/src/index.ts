@@ -6,6 +6,7 @@ import { vector2_create } from "@playground/math/vector2";
 import { COLLIDER, COMPONENTS, INPUT, POSITION, SPRITE, TAG_PLAYER, VELOCITY } from "./components";
 import { ENEMY_MOVEMENT } from "./systems/enemy_movement";
 import { ENEMY_SPAWNER } from "./systems/enemy_spawner";
+import { LIFETIME_DESTROYER } from "./systems/lifetime";
 import { PHYSICS } from "./systems/physics";
 import { PLAYER_INPUT } from "./systems/player_input";
 import { PLAYER_MOVEMENT } from "./systems/player_movement";
@@ -14,6 +15,7 @@ import { RENDERER } from "./systems/renderer";
 
 const world = world_create(COMPONENTS);
 
+system_create(world, LIFETIME_DESTROYER);
 system_create(world, PLAYER_INPUT);
 system_create(world, ENEMY_MOVEMENT);
 system_create(world, PLAYER_MOVEMENT);

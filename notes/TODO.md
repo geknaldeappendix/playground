@@ -14,3 +14,8 @@ packages
 research Float32Array memory
 
 - world is not available in System constructor
+
+rambling ideas:
+tag_manager?
+tag_set
+some thing that holds entity ids with tags
