@@ -5,6 +5,7 @@ export type World = {
     components: Map<number, any[]>
     entities: number[]
     entities_to_delete: number[]
+    tags: Map<number, number[]>
     systems: (System & { accumulated_time: number, interval: number })[]
 }
 
@@ -15,6 +16,7 @@ export function world_create(
         components: new Map<number, any[]>(component_indexes.map(index => ([1 << index, []]))),
         entities: [],
         entities_to_delete: [],
+        tags: new Map(),
         systems: []
     }
 }

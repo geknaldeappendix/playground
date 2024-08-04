@@ -75,7 +75,7 @@ export const RENDERER: System = {
         const position = component_get(world, player, POSITION)
         camera.position[0] = canvas.width / 2 - position[0];
         camera.position[1] = canvas.height / 2 - position[1];
-        camera.position[2] = 1;
+        camera.position[2] = 2;
         text.innerHTML = camera.position[0] + ' | ' + camera.position[1] + ' | ' + camera.position[2]
 
         gl.uniform2f(u_resolution, canvas.width, canvas.height);

@@ -4,6 +4,7 @@ import { system_create } from "@playground/ecs/system";
 import { world_create, world_tick } from "@playground/ecs/world";
 import { vector2_create } from "@playground/math/vector2";
 import { COLLIDER, COMPONENTS, INPUT, POSITION, SPRITE, TAG_PLAYER, VELOCITY } from "./components";
+import { ANIMATOR_SYSTEM } from "./systems/animator";
 import { ENEMY_MOVEMENT } from "./systems/enemy_movement";
 import { ENEMY_SPAWNER } from "./systems/enemy_spawner";
 import { LIFETIME_DESTROYER } from "./systems/lifetime";
@@ -22,6 +23,7 @@ system_create(world, PLAYER_MOVEMENT);
 system_create(world, ENEMY_SPAWNER);
 system_create(world, PROJECTILE_SPAWNER);
 system_create(world, PHYSICS);
+system_create(world, ANIMATOR_SYSTEM);
 system_create(world, RENDERER);
 
 const player = entity_create(world);

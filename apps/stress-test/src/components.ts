@@ -6,7 +6,8 @@ export const POSITION = 0,
             TAG_PLAYER = 5,
             TAG_ENEMY = 6,
             TAG_PROJECTILE = 7,
-            LIFETIME = 8;
+            LIFETIME = 8,
+            ANIMATOR = 9;
 
 export const COMPONENTS = [
     POSITION,
@@ -17,5 +18,6 @@ export const COMPONENTS = [
     TAG_PLAYER,
     TAG_ENEMY,
     TAG_PROJECTILE,
-    LIFETIME
+    LIFETIME,
+    ANIMATOR
 ]
