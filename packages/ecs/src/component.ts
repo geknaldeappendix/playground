@@ -17,7 +17,7 @@ export function component_has(
     component_index: number
 ): boolean {
     const bit_mask = 1 << component_index;
-    return world.components.get(bit_mask)![entity_index] !== undefined;
+    return (bit_mask & world.entities[entity_index]) === bit_mask;
 }
 
 export function component_get(
