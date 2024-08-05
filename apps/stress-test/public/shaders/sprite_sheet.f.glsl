@@ -10,5 +10,6 @@ out vec4 out_gl_FragColor;
 
 void main() {
     vec4 color = texture(u_texture, v_texcoord);
+    color.rgb *= color.a;
     out_gl_FragColor = color;
 }

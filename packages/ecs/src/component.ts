@@ -35,5 +35,6 @@ export function component_delete(
     component_index: number
 ) {
     const bit_mask = 1 << component_index;
+    world.entities[entity_index] &= ~bit_mask;
     delete world.components.get(bit_mask)![entity_index];
 }

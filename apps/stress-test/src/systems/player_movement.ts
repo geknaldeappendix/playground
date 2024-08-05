@@ -16,7 +16,7 @@ export const PLAYER_MOVEMENT: System  = {
 
         let speed = SPEED;
         if (input.sprint) {
-            speed -= 60;
+            speed *= 2;
         }
 
         velocity[0] = input.dx * speed;

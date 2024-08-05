@@ -10,8 +10,9 @@ import { COLLIDER, INPUT, LIFETIME, POSITION, SPRITE, TAG_PROJECTILE, VELOCITY }
 
 const QUERY = query_create([INPUT])
 
-const PROJECTILE_SPEED = 120;
-const COOLDOWN_RATE = 1000/10;
+const PROJECTILE_SPEED = 240;
+const COOLDOWN_RATE = 1;
+let next_shot = 0;
 
 export const PLAYER_INPUT: System = {
     interval: 0,
@@ -21,13 +22,13 @@ export const PLAYER_INPUT: System = {
         const position = component_get(world, player, POSITION)
         const input = component_get(world, player, INPUT)
 
-        input.dx = (key_down('d') ? 1 : 0) - (key_down('a') ? 1 : 0);
-        input.dy = (key_down('w') ? 1 : 0) - (key_down('s') ? 1 : 0);
-        input.sprint = key_down('Shift');
-
+        input.dx = (key_down('KeyD') ? 1 : 0) - (key_down('KeyA') ? 1 : 0);
+        input.dy = (key_down('KeyW') ? 1 : 0) - (key_down('KeyS') ? 1 : 0);
+        input.sprint = key_down('ShiftLeft');
+        
         // Move this to projectile spawner
         if (mouse_down(0)) {
-            if (COOLDOWN_RATE < now) {
+            if (next_shot < now) {
                 const mouse = vector2_create(...mouse_xy())
                 const input = vector2_subtract(mouse, mouse, camera.position);
 
@@ -44,6 +45,8 @@ export const PLAYER_INPUT: System = {
                 component_set(world, projectile, SPRITE, 7);
                 component_set(world, projectile, TAG_PROJECTILE, 1);
                 component_set(world, projectile, LIFETIME, now + 10000);
+
+                next_shot = now + COOLDOWN_RATE;
             }
         }
     }

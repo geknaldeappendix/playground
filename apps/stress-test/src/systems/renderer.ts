@@ -1,4 +1,4 @@
-import { component_get } from "@playground/ecs/component";
+import { component_get, component_has } from "@playground/ecs/component";
 import { query, query_create } from "@playground/ecs/query";
 import { System } from "@playground/ecs/system";
 import { canvas } from "@playground/webgl/canvas";
@@ -8,7 +8,7 @@ import { program_create, program_uniform_location } from "@playground/webgl/prog
 import { texture_create } from "@playground/webgl/texture";
 import { VBO, vbo_bind, vbo_create, vbo_data } from "@playground/webgl/vbo";
 import { camera } from "../camera";
-import { POSITION, SPRITE, TAG_PLAYER } from "../components";
+import { FLIP_X, POSITION, SPRITE, TAG_PLAYER } from "../components";
 
 const QUERY = query_create([POSITION, SPRITE]);
 const QUERY_PLAYER = query_create([POSITION, TAG_PLAYER]);
@@ -18,11 +18,13 @@ let texture: WebGLTexture;
 
 let vertex_buffer: VBO, 
     sprite_position_buffer: VBO, 
-    sprite_index_buffer: VBO;
+    sprite_index_buffer: VBO,
+    sprite_flip_x_buffer: VBO;
 
 let in_position: number,
     in_sprite_position: number,
-    in_sprite_index: number;
+    in_sprite_index: number, 
+    in_sprite_flip_x: number;
 
 let u_resolution: WebGLUniformLocation,
     u_camera: WebGLUniformLocation;
@@ -51,23 +53,26 @@ export const RENDERER: System = {
         ]));
         sprite_position_buffer = vbo_create(gl, gl.ARRAY_BUFFER, gl.DYNAMIC_DRAW);
         sprite_index_buffer = vbo_create(gl, gl.ARRAY_BUFFER, gl.DYNAMIC_DRAW);
+        sprite_flip_x_buffer = vbo_create(gl, gl.ARRAY_BUFFER, gl.DYNAMIC_DRAW);
         gl.useProgram(program);
 
         in_position = gl.getAttribLocation(program, 'in_position')
         in_sprite_position = gl.getAttribLocation(program, 'in_sprite_pos')
         in_sprite_index = gl.getAttribLocation(program, 'in_sprite_index')
+        in_sprite_flip_x = gl.getAttribLocation(program, 'in_sprite_flip_x')
 
         u_resolution = program_uniform_location(gl, program, "u_resolution")
         u_camera = program_uniform_location(gl, program, "u_camera")
 
-        gl.clearColor(1.0, 1.0, 1.0, 1.0)
+        // gl.colorMask(false, false, false, true);
+        gl.clearColor(0, 0, 0, 1);
     },
 
     render(world) {
         gl.useProgram(program);
         gl.bindTexture(gl.TEXTURE_2D, texture);
         gl.viewport(0, 0, canvas.width, canvas.height);
-        // gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         const entities = query(world, QUERY);
 
@@ -93,8 +98,8 @@ export const RENDERER: System = {
         let offset = 0;
         entities.forEach(entity => {
             const position = component_get(world, entity, POSITION);
-            positions.set(position, offset)
-            offset += 2
+            positions.set(position, offset * 2)
+            offset++;
         });
 
         vbo_data(gl, sprite_position_buffer, positions);
@@ -108,6 +113,16 @@ export const RENDERER: System = {
         gl.vertexAttribPointer(in_sprite_index, 1, gl.FLOAT, false, 0, 0);
         gl.vertexAttribDivisor(in_sprite_index, 1);
 
+        const flip_x = new Float32Array(entities.map(entity => component_has(world, entity, FLIP_X) ? 1 : 0).flat());
+        vbo_data(gl, sprite_flip_x_buffer, flip_x);
+        gl.enableVertexAttribArray(in_sprite_flip_x);
+        gl.vertexAttribPointer(in_sprite_flip_x, 1, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribDivisor(in_sprite_flip_x, 1);
+
         gl.drawArraysInstanced(gl.TRIANGLE_FAN, 0, 4, entities.length);
+
+        // gl.clearColor(1, 1, 1, 1);
+        // gl.colorMask(false, false, false, true);
+        // gl.clear(gl.COLOR_BUFFER_BIT);
     }
 }

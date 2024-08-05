@@ -1,9 +1,9 @@
 import { component_set } from "@playground/ecs/component";
 import { entity_create } from "@playground/ecs/entity";
 import { system_create } from "@playground/ecs/system";
-import { world_create, world_tick } from "@playground/ecs/world";
+import { world_create, world_pause, world_resume, world_tick } from "@playground/ecs/world";
 import { vector2_create } from "@playground/math/vector2";
-import { COLLIDER, COMPONENTS, INPUT, POSITION, SPRITE, TAG_PLAYER, VELOCITY } from "./components";
+import { ANIMATOR, COLLIDER, COMPONENTS, INPUT, POSITION, SPRITE, TAG_PLAYER, VELOCITY } from "./components";
 import { ANIMATOR_SYSTEM } from "./systems/animator";
 import { ENEMY_MOVEMENT } from "./systems/enemy_movement";
 import { ENEMY_SPAWNER } from "./systems/enemy_spawner";
@@ -32,10 +32,17 @@ component_set(world, player, VELOCITY, vector2_create());
 component_set(world, player, INPUT, { dx: 0, dy: 0 })
 component_set(world, player, COLLIDER, 1);
 component_set(world, player, SPRITE, 0)
+component_set(world, player, ANIMATOR, [0,0, 0]);
 component_set(world, player, TAG_PLAYER, 1)
 
-function tick(now: number) {
+window.requestAnimationFrame(function tick(now) {
     window.requestAnimationFrame(tick)
     world_tick(world, now);
-}
-window.requestAnimationFrame(tick)
+})
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        world_pause(world);
+    } else {
+        world_resume(world);
+    }
+}, false)

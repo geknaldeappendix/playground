@@ -2,6 +2,12 @@ import { _entity_internal_delete } from "./entity";
 import { System } from "./system";
 
 export type World = {
+    now: number
+    previous_tick: number
+    previous_second: number
+    tps: number
+    paused: boolean
+
     components: Map<number, any[]>
     entities: number[]
     entities_to_delete: number[]
@@ -13,6 +19,11 @@ export function world_create(
     component_indexes: number[]
 ): World {
     return {
+        now: 0,
+        previous_tick: 0,
+        previous_second: 0,
+        tps: 0,
+        paused: false,
         components: new Map<number, any[]>(component_indexes.map(index => ([1 << index, []]))),
         entities: [],
         entities_to_delete: [],
@@ -21,17 +32,14 @@ export function world_create(
     }
 }
 
-let tps = 0,
-    previous_tick = 0,
-    previous_second = 0;
-
 export function world_tick(
     world: World,
     now: number
 ) {
-    tps++;
-    const delta = now - previous_tick;
+    world.now = now;
 
+    world.tps++;
+    const delta = now - world.previous_tick;
     for (const system of world.systems) {
         system.accumulated_time += delta;
 
@@ -56,11 +64,28 @@ export function world_tick(
         _entity_internal_delete(world, entity)
     }
 
-    if (now - previous_second > 1000) {
-        console.log(tps);
-        tps = 0;
-        previous_second = now;
+    if (now - world.previous_second > 1000) {
+        console.log(world.tps);
+        world.tps = 0;
+        world.previous_second = now;
     }
 
-    previous_tick = now;
+    world.previous_tick = now;
+}
+
+export function world_pause(
+    world: World
+) {
+    world.paused = true;
+}
+
+export function world_resume(
+    world: World
+) {
+    //TODO: maybe calc last frame before pause?
+    const now = performance.now();
+    world.now = now;
+    world.previous_tick = now;
+    world.previous_second = now;
+    world.paused = false;
 }
