@@ -19,3 +19,5 @@ rambling ideas:
 tag_manager?
 tag_set
 some thing that holds entity ids with tags
+
+usage of UINT16array etc in world for entities with MAX_ENTITIES count

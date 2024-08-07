@@ -22,7 +22,7 @@ function direction_get(velocity: Vector2): number {
 
 export const ANIMATOR_SYSTEM: System = {
     interval: 1000/16,
-    tick(world, delta, now) {
+    tick(world, _, now) {
         const entities = query(world, QUERY);
 
         for (const entity of entities) {
@@ -41,6 +41,7 @@ export const ANIMATOR_SYSTEM: System = {
                 animator[1] = now + 1000;
             }
             
+            // TODO: test if tags are faster
             let direction = direction_get(velocity);
             if (direction === 3) {
                 direction = 2;
