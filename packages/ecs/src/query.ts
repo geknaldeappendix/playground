@@ -6,10 +6,11 @@ export function query_create(
     return component_indexes.reduce((bit_mask, index) => bit_mask | 1 << index, 0)
 }
 
+// TODO: need to manually 1 <<, do that here
 export function query(
     world: World,
     query: number
-): number[] {world
+): number[] {
     return world.entities.reduce<number[]>((result, bit_mask, i) => {
         if ((query & bit_mask) === query) {
             result.push(i)

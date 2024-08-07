@@ -1,9 +1,11 @@
-import { component_get, component_has } from "@playground/ecs/component";
+import { component_get } from "@playground/ecs/component";
 import { entity_delete } from "@playground/ecs/entity";
 import { query, query_create } from "@playground/ecs/query";
 import { System } from "@playground/ecs/system";
+import { tag_has } from "@playground/ecs/tag";
 import { Vector2, vector2_add, vector2_create, vector2_from, vector2_scale } from "@playground/math/vector2";
-import { COLLIDER, POSITION, TAG_ENEMY, TAG_PLAYER, TAG_PROJECTILE, VELOCITY } from "../components";
+import { COLLIDER, POSITION, VELOCITY } from "../components";
+import { ENEMY, PLAYER, PROJECTILE } from "../tags";
 
 const size = 16;
 const rect2w = size, rect1w = size, rect2h = size, rect1h = size;
@@ -89,10 +91,10 @@ export const PHYSICS: System = {
             vector2_add(delta, position, delta);
             vector2_from(position, delta);
 
-            if (component_has(world, entity, TAG_PROJECTILE)) {
+            if (tag_has(world, entity, PROJECTILE)) {
                 other: for (const other of entities) {
                     if (entity === other) continue other;
-                    if (!component_has(world, other, TAG_ENEMY)) continue other;
+                    if (!tag_has(world, other, ENEMY)) continue other;
                     
                     const other_position = component_get(world, other, POSITION);
     
@@ -104,10 +106,10 @@ export const PHYSICS: System = {
                 }
             }
 
-            if (component_has(world, entity, TAG_PLAYER)) {
+            if (tag_has(world, entity, PLAYER)) {
                 other: for (const other of entities) {
                     if (entity === other) continue other;
-                    if (!component_has(world, other, TAG_ENEMY)) continue other;
+                    if (!tag_has(world, other, ENEMY)) continue other;
                     
                     const other_position = component_get(world, other, POSITION);
     

@@ -1,6 +1,7 @@
 import { component_get, component_has } from "@playground/ecs/component";
 import { query, query_create } from "@playground/ecs/query";
 import { System } from "@playground/ecs/system";
+import { tag_query } from "@playground/ecs/tag";
 import { canvas } from "@playground/webgl/canvas";
 import { gl } from "@playground/webgl/gl";
 import { image_create } from "@playground/webgl/image";
@@ -8,10 +9,10 @@ import { program_create, program_uniform_location } from "@playground/webgl/prog
 import { texture_create } from "@playground/webgl/texture";
 import { VBO, vbo_bind, vbo_create, vbo_data } from "@playground/webgl/vbo";
 import { camera } from "../camera";
-import { FLIP_X, POSITION, SPRITE, TAG_PLAYER } from "../components";
+import { FLIP_X, POSITION, SPRITE } from "../components";
+import { PLAYER } from "../tags";
 
 const QUERY = query_create([POSITION, SPRITE]);
-const QUERY_PLAYER = query_create([POSITION, TAG_PLAYER]);
 
 let program: WebGLProgram;
 let texture: WebGLTexture;
@@ -65,7 +66,7 @@ export const RENDERER: System = {
         u_camera = program_uniform_location(gl, program, "u_camera")
 
         // gl.colorMask(false, false, false, true);
-        gl.clearColor(0, 0, 0, 1);
+        gl.clearColor(1, 1, 1, 1);
     },
 
     render(world) {
@@ -76,7 +77,7 @@ export const RENDERER: System = {
 
         const entities = query(world, QUERY);
 
-        const player = query(world, QUERY_PLAYER)[0];
+        const player = tag_query(world, PLAYER)[0]; //TODO:
         const position = component_get(world, player, POSITION)
         camera.position[0] = canvas.width / 2 - position[0];
         camera.position[1] = canvas.height / 2 - position[1];

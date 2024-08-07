@@ -1,5 +1,6 @@
 import { _entity_internal_delete } from "./entity";
 import { System } from "./system";
+import { _tag_internal_delete } from "./tag";
 
 export type World = {
     now: number
@@ -10,8 +11,8 @@ export type World = {
 
     components: Map<number, any[]>
     entities: number[]
+    tags: number[]
     entities_to_delete: number[]
-    tags: Map<number, number[]>
     systems: (System & { accumulated_time: number, interval: number })[]
 }
 
@@ -26,11 +27,12 @@ export function world_create(
         paused: false,
         components: new Map<number, any[]>(component_indexes.map(index => ([1 << index, []]))),
         entities: [],
+        tags: [],
         entities_to_delete: [],
-        tags: new Map(),
         systems: []
     }
 }
+
 
 export function world_tick(
     world: World,
@@ -62,10 +64,12 @@ export function world_tick(
     while (world.entities_to_delete.length > 0) {
         const entity = world.entities_to_delete.pop()!
         _entity_internal_delete(world, entity)
+        _tag_internal_delete(world, entity)
     }
 
+
     if (now - world.previous_second > 1000) {
-        console.log(world.tps);
+        console.log(world.tps, world.entities.length);
         world.tps = 0;
         world.previous_second = now;
     }

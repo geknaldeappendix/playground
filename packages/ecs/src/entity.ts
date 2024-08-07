@@ -1,3 +1,4 @@
+import { _tag_internal_delete } from "./tag";
 import { World } from "./world";
 
 export function entity_delete(
@@ -21,6 +22,7 @@ export function entity_create(
     const free = world.entities.indexOf(0);
     if (free !== -1) {
         _entity_internal_delete(world, free);
+        _tag_internal_delete(world, free);
         return free;
     }
     return world.entities.push(0) - 1;
